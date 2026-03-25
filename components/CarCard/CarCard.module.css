@@ -1,0 +1,9 @@
+.carCard {
+    display: flex;
+    flex-direction: column;
+
+ .image {
+    object-fit: cover;
+    aspect-ratio: 1.03/1;
+ }   
+}
