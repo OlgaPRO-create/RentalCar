@@ -10,11 +10,15 @@
   },
   "dependencies": {
     "@tanstack/react-query-devtools": "^5.91.3",
+    "axios": "^1.13.6",
     "modern-normalize": "^3.0.1",
     "next": "16.2.1",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "root": "github:tanstack/react-query"
+    "root": "github:tanstack/react-query",
+    "use-debounce": "^10.1.0",
+    "use-sync-external-store": "^1.6.0",
+    "zustand": "^5.0.12"
   },
   "devDependencies": {
     "@types/node": "^20",
