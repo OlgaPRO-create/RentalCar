@@ -17,14 +17,6 @@ export interface Car {
     mileage: number;
 }
 
-export interface GetCarsProps {
-    brand?: string;
-    rentalPrice?: string;
-    minMileage?: string;
-    maxMileage?: string;
-    limit?: string;
-    page?: string;
-}
 export interface CarsResponse {
     cars: Car[];
     totalCars: number;

@@ -1,9 +1,0 @@
-export const cleanParams = <T extends Record<string, unknown>>(
-    params: T,
-): T => {
-    return Object.fromEntries(
-        Object.entries(params).filter(
-            ([_, value]) => value !== null && value !== "",
-        ),
-    ) as T;
-};

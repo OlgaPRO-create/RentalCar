@@ -1,31 +1,42 @@
-import type { Metadata } from "next";
-import { Inter, Manrope } from "next/font/google";
-import "./globals.css";
-import { TanstackProvider } from "@/providers/TanstackProvider";
-import { PropsWithChildren } from "react";
+import type { Metadata } from 'next';
+import { Manrope, Inter } from 'next/font/google';
+import './globals.css';
+import Header from '@/components/Header/Header';
+import TanStackProvider from '@/components/TanstackProvider/TanstackProvider';
+import { Toaster } from 'react-hot-toast';
 
-const manropeFont = Manrope({
-  variable: "--font-manrope",
-  subsets: ["latin"],
+const manrope = Manrope({
+  variable: '--font-manrope',
+  subsets: ['latin'],
 });
 
-const interFont = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
+const inter = Inter({
+  variable: '--font-inter',
+  subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
-  title: "Rental Car App",
-  description: "A simple rental car application",
+  title: 'RentalCar',
+  description:
+    'RentalCar is a modern car rental platform where users can explore vehicles, view detailed information, and book a car quickly and easily.',
+  icons: {
+    icon: '/logo.svg',
+  },
 };
 
-export default function RootLayout({ children }: PropsWithChildren) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html lang='en'>
-      <body className={`${manropeFont.variable} ${interFont.variable}`}>
-        <TanstackProvider>
+     <html lang="en" data-scroll-behavior="smooth">
+      <body className={`${manrope.variable} ${inter.variable}`}>
+        <TanStackProvider>
+          <Header />
           <main>{children}</main>
-        </TanstackProvider>
+          <Toaster position="top-right" />
+        </TanStackProvider>
       </body>
     </html>
   );

@@ -1,71 +1,37 @@
-// "use client";
-// import CarCard from "@/components/CarCard/CarCard";
-// import { useCars } from "@/hooks/useCars";
-// import Grid from "@/components/Grid/Grid";
+import CatalogClient from './CatalogClient';
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query';
+import { getBrands, getCars } from '@/lib/api';
+import { defaultFilters } from '@/lib/store/carsStore';
 
-// export default function CatalogPage() {
-//     const query = useCars({});
-//     const cars = query.data?.pages.flatMap((page) => page.cars) ?? [];
+export default async function CatalogPage() {
+  const queryClient = new QueryClient();
+  const initialPage = 1;
+  const limit = 12;
 
-//     if (query.isPending) {
-//         // return <p>Error occurred while fetching car data.</p>;
-//          return <p>Loading...</p>;
-//     }
+  await Promise.all([
+    queryClient.prefetchQuery({
+      queryKey: ['brands'],
+      queryFn: getBrands,
+    }),
+    queryClient.prefetchInfiniteQuery({
+      queryKey: ['cars', defaultFilters],
+      queryFn: ({ pageParam = initialPage }) =>
+        getCars({
+          ...defaultFilters,
+          page: String(pageParam),
+          limit: String(limit),
+        }),
+      initialPageParam: initialPage,
+    }),
+  ]);
 
-//     return (
-//         <div className='container'>
-//             <Grid
-//                 items={cars}
-//                 getKey={(car) => car.id}
-//                 renderItem={(car) => <CarCard car={car} />}
-//             />
-//             {query.hasNextPage && (
-//                 <button
-//                     onClick={() => query.fetchNextPage()}
-//                     disabled={query.isFetchingNextPage}
-//                 >
-//                     {query.isFetchingNextPage ? "Loading more..." : "Load More"}
-//                 </button>
-//             )}
-//         </div>
-//     );
-// }
-
-"use client";
-
-import CarCard from "@/components/CarCard/CarCard";
-import { useCars } from "@/hooks/useCars";
-import Grid from "@/components/Grid/Grid";
-
-export default function CatalogPage() {
-    const query = useCars({});
-
-    const cars = query.data?.pages.flatMap((page) => page.cars) ?? [];
-
-    if (query.isPending) {
-        return <p>Loading...</p>;
-    }
-
-    if (query.isError) {
-        return <p>Error occurred while fetching car data.</p>;
-    }
-
-    return (
-        <div className='container'>
-            <Grid
-                items={cars}
-                getKey={(car) => car.id}
-                renderItem={(car) => <CarCard car={car} />}
-            />
-
-            {query.hasNextPage && (
-                <button
-                    onClick={() => query.fetchNextPage()}
-                    disabled={query.isFetchingNextPage}
-                >
-                    {query.isFetchingNextPage ? "Loading more..." : "Load More"}
-                </button>
-            )}
-        </div>
-    );
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <CatalogClient />
+    </HydrationBoundary>
+  );
 }
