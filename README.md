@@ -10,11 +10,11 @@ each vehicle, and submit a booking request.
 
 ## Live Demo
 
-[Live Demo](https://rental-car-murex-tau.vercel.app/)
+[Live Demo](rental-car-six-black.vercel.app)
 
 ## GitHub Repository
 
-[GitHub Repository](https://github.com/Romanna-Brych/Rental-Car)
+[GitHub Repository](https://github.com/OlgaPRO-create/RentalCar)
 
 ## Features
 
@@ -49,7 +49,7 @@ each vehicle, and submit a booking request.
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/Romanna-Brych/Rental-Car.git
+git clone git@github.com:OlgaPRO-create/RentalCar.git
 ```
 
 2. Navigate to the project folder:
