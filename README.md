@@ -10,7 +10,7 @@ each vehicle, and submit a booking request.
 
 ## Live Demo
 
-[Live Demo](rental-car-six-black.vercel.app)
+[Live Demo](rental-car-six-black.vercel.app/)
 
 ## GitHub Repository
 
